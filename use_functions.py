@@ -34,19 +34,64 @@
 Для реализации основного меню можно использовать пример ниже или написать свой
 """
 
+hist_name=[]
+hist_sum =[]
+
+def acc_sum():
+    '''
+    ф-я возвращает остаток на счету
+    '''
+    itog=0
+    for i in hist_sum:
+        itog+=i
+
+    return itog
+
+def acc_add():
+    # пополнение счета
+    sum_add = int(input('Введите сумму пополнения счета: '))
+    if sum_add<=0:
+        print('Неверная сумма, повторите операцию')
+    else:
+        hist_sum.append(sum_add)
+        hist_name.append('Пополнение')
+
+def acc_sub():
+    # покупка
+    ostatok=acc_sum()
+    if ostatok<=0:
+        print('На счету нет средств')
+        return
+    name_sub = input('Введите назаание покупки : ')
+    sum_sub = int(input('Введите сумму покупки: '))
+    if ostatok - sum_sub < 0:
+        print('Неверная сумма, повторите операцию')
+    else:
+        hist_sum.append(- sum_sub)
+        hist_name.append(name_sub)
+
+def acc_hist():
+    if len(hist_name)==0:
+        print('У счета нет истории')
+        return
+    for i in range(len(hist_name)) :
+        print(f'{hist_name[i]} {hist_sum[i]}')
+
 while True:
+    print('*'*20) # псевдо-очистка окна вывода
+    print(f'На счету {acc_sum()} руб')
     print('1. пополнение счета')
     print('2. покупка')
     print('3. история покупок')
     print('4. выход')
 
-    choice = input('Выберите пункт меню')
+    choice = input('Выберите пункт меню ')
     if choice == '1':
-        pass
+        acc_add()
     elif choice == '2':
-        pass
+        acc_sub()
     elif choice == '3':
-        pass
+        acc_hist()
     elif choice == '4':
         break
     else:
